@@ -68,7 +68,7 @@ kubectl create secret generic newsecret --dry-run=client -n kube-system --from-l
 ```
 
 Since you will get this error if you try to follow documentaion format:
-![alt text](image-6.png)
+![alt text](./Screenshots/image-6.png)
 
 To solve this follow below steps
 ```
@@ -80,7 +80,7 @@ First see the secrets using
 ```
 kubectl get secrets -A
 ```
-![alt text](image-1.png)
+![alt text](./Screenshots/image-1.png)
 
 now use this name under 
 
@@ -88,7 +88,7 @@ now use this name under
 NOTE THE -n tag use your namespace where kubeseal controller is running
 kubectl get secret -n kube-system <sealed-secrete-name> -o jsonpath="{.data.tls\.crt}" | base64 --decode > pub-cert.pem
 ```
-![alt text](image-2.png)
+![alt text](./Screenshots/image-2.png)
 
 4. **FINAL SEALING SECRET** 
 
@@ -106,7 +106,7 @@ cat secret.yaml | kubeseal --cert pub-cert.pem > catsealedsecret.yaml  #THIS WIL
 kubectl apply -f sealedsecret.yaml
 
 ```
-![alt text](image-3.png)
+![alt text](./Screenshots/image-3.png)
 
 NOTE:
 
@@ -114,10 +114,10 @@ if you create secrets from a sealedsecret.yaml
 its listed under kubectl get secrets as well as 
 kubectl get sealedsecrets
 UNTILL and unless you delete the sealedsecrete the normal secret will b recreated
-![alt text](image-4.png)
+![alt text](./Screenshots/image-4.png)
 
 POST DELETING SEALED SECRET
-![alt text](image-5.png)
+![alt text](./Screenshots/image-5.png)
 
 
 5. **NOW YOU CAN PUSH TO SCM LIKE GITHUB AND GITLAB WITHOUT ANY WORRIES SECURITY ACHIEVED** 
@@ -139,7 +139,7 @@ kubectl get svc -n kube-system
 helm repo add external-secrets https://external-secrets.github.io/kubernetes-external-secrets/
 helm install external-secrets external-secrets/kubernetes-external-secrets
 ```
-![alt text](image-7.png)
+![alt text](./Screenshots/image-7.png)
 
 External Secret Operator: A Kubernetes operator that fetches secrets from an external secrets management system.
 Secret Store: An external system where secrets are stored, such as AWS Secrets Manager, HashiCorp Vault, or Azure Key Vault.
@@ -148,10 +148,9 @@ Kubernetes Secret: A standard Kubernetes secret that gets created and populated 
 
 
 2. **Create ServiceAccount on Cloud** 
-![alt text](image-8.png)
-![alt text](image-10.png)
-![alt text](image-11.png)
-![alt text](/Screenshots/image-12.png)
+![alt text](./Screenshots/image-8.png)
+![alt text](./Screenshots/image-10.png)
+![alt text](./Screenshots/image-11.png)
 
 * NOTE use only json as p12 is not supported
 
@@ -176,7 +175,7 @@ kubectl apply -f secretstore.yaml
 now go to secret manager in google cloud portal and give the secret accessor permission from IAM to this service account.
 and create a secret key in secretmanager(vault)
 
-![alt text](image-9.png)
+![alt text](./Screenshots/image-9.png)
 
 now create
 ```
